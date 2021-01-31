@@ -1,0 +1,119 @@
+// package Question1;
+
+// /* Simple Traffic and Traffic Light***************************
+
+// pedestrian road
+// | |
+// | |* light for cars
+// ------------ -------------
+// car road
+
+// ------------ -------------
+// light for cars *| |
+// | |
+
+// *********************************************************/
+
+// import java.util.*;
+
+// public class TrafficLight {
+//     public static void main(String[] args) {
+//         Random random = new Random();
+//         int n = 0;
+
+//         while (++n < 100) {
+//             new Car().start();
+//             try {
+//                 Thread.sleep(10000 + random.nextInt(1000)); // car arriving
+//                 // intervals
+//             } catch (InterruptedException e) {
+//                 e.printStackTrace();
+//             }
+//         }
+//     }
+// }
+
+// class InterSection {
+//     static String[] nums = { "First", "Second", "Third", "Fourth", "Fifth", "Sixth", "Seventh", "Eigth", "Nineth",
+//             "Tenth", "Eleventh", "Twelfth", "Thirteenth", "Fourteenth", "Fifteenth", "Sixteenth", "", "", "", "", "",
+//             "", "", "", "" };
+//     TraficLight tt;
+//     int carNum; // temporary car number at the intersection
+
+//     public InterSection() {
+//         tt = new TraficLight(this);
+//         carNum = 0;
+//     }
+
+//     public boolean carCanGo() {
+//         return !tt.isRed();
+//     }
+
+//     public void carArrived() {
+//         System.out.println(nums[carNum] + " car arrived");
+//         ++carNum;
+//     }
+
+//     public void carPassed() {
+//         System.out.println(nums[carNum - 1] + " car passed");
+//         --carNum;
+//     }
+// }
+
+// class Car extends Thread {
+//     static InterSection is;
+//     static int num = 0; // serial number of passing cars
+//     boolean printed;
+
+//     public Car() {
+//         ++num;
+//         if (is == null) {
+//             is = new InterSection();
+//         }
+//         printed = false;
+//     }
+
+//     public void run() {
+//         is.carArrived(); // story starts at a car arriving the intersection
+//         while (!is.carCanGo()) {
+//             if (!printed) {
+//                 System.out.println("...and waiting(car serial num: " + num + ")");
+//                 printed = true;
+//             }
+//         }
+//         is.carPassed(); // story ends at car leaving the intersection
+//     }
+// }
+
+// class TraficLight {
+//     boolean red;
+//     Timer timer;
+//     TimerTask ttask;
+//     long delay;
+//     InterSection is;
+
+//     public TraficLight(InterSection s) {
+//         timer = new Timer();
+//         ttask = new TimerTask() {
+//             public void run() {
+//                 if (is != null && is.carNum == 1) {
+//                     setRed(false); // first arriving car has privilege
+//                     cancel();
+//                 } else {
+//                     setRed(!isRed());
+//                 }
+//             }
+//         };
+//         delay = 8000; // eight second interval
+//         setRed(true);
+//         timer.schedule(ttask, delay, delay);
+//     }
+
+//     public boolean isRed() {
+//         return red;
+//     }
+
+//     public void setRed(boolean value) {
+//         red = value;
+//     }
+// }
